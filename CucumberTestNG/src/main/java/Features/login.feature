@@ -1,5 +1,5 @@
 Feature: Free CRM Login Feature
-
+#THIS IS FOR FUN
 Scenario Outline: Free CRM Login Test Scenario
 
 Given user is already on Login Page
