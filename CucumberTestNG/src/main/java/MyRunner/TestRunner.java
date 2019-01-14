@@ -1,15 +1,19 @@
 package MyRunner;
 
 
+import java.io.File;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.cucumber.listener.Reporter;
+
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.CucumberFeatureWrapper;
 import cucumber.api.testng.TestNGCucumberRunner;
-
+	
 
 
 @CucumberOptions(
@@ -21,7 +25,7 @@ import cucumber.api.testng.TestNGCucumberRunner;
                 "html:target/cucumber-reports/cucumber-pretty",
                 "json:target/cucumber-reports/CucumberTestReport.json",
                 "rerun:target/cucumber-reports/rerun.txt"
-        },plugin = "json:target/cucumber-reports/CucumberTestReport.json")
+        },plugin = "com.cucumber.listener.ExtentCucumberFormatter:ughh/report.html")
 
 public class TestRunner {
     private TestNGCucumberRunner testNGCucumberRunner;
@@ -31,7 +35,7 @@ public class TestRunner {
         testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
     }
  
-    @Test(groups = "cucumber", description = "Runs Cucumber Feature", dataProvider = "features")
+    @Test(groups = "cucumber", description = "Runs Cucumber Featurke", dataProvider = "features")
     public void feature(CucumberFeatureWrapper cucumberFeature) {
         testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
     }
@@ -43,6 +47,9 @@ public class TestRunner {
  
     @AfterClass(alwaysRun = true)
     public void tearDownClass() throws Exception {
+		//Reporter.loadXMLConfig(new File("extent-config.xml"));
+
         testNGCucumberRunner.finish();
+
     }
 }
